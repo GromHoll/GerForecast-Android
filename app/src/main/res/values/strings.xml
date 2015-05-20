@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Бизнес планирование</string>
+
+    <string name="title_main_menu">Главная</string>
+    <string name="title_input_values">Ввод Данных</string>
+    <string name="title_result">Результат</string>
+    <string name="title_elasticity">Коэфф. эластичности</string>
+    <string name="title_variation">Коэфф. вариации</string>
+    <string name="title_saving_project">Сохранённые проекты</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
