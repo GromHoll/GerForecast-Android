@@ -1,10 +1,13 @@
-package edu.nntu.gerforecast;
+package edu.nntu.gerforecast.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import edu.nntu.gerforecast.MainActivity;
+import edu.nntu.gerforecast.R;
 
 
 public class MainMenuFragment extends MainActivity.PlaceholderFragment {

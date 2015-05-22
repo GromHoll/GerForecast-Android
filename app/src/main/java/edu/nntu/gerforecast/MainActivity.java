@@ -7,12 +7,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+
+import edu.nntu.gerforecast.fragments.InputValueFragment;
+import edu.nntu.gerforecast.fragments.MainMenuFragment;
+import edu.nntu.gerforecast.fragments.NavigationDrawerFragment;
 
 
 public class MainActivity extends ActionBarActivity
@@ -39,12 +40,13 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // TODO make fragments reusable
         switch (position) {
             case 0:
                 transaction.replace(R.id.container, MainMenuFragment.newInstance(position + 1));
                 break;
             case 1:
-                transaction.replace(R.id.container,  InputValueFragment.newInstance(position + 1));
+                transaction.replace(R.id.container, InputValueFragment.newInstance(position + 1));
                 break;
             default:
                 transaction.replace(R.id.container, MainMenuFragment.newInstance(position + 1));
@@ -57,7 +59,6 @@ public class MainActivity extends ActionBarActivity
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_main_menu);
-
                 break;
             case 2:
                 mTitle = getString(R.string.title_input_values);

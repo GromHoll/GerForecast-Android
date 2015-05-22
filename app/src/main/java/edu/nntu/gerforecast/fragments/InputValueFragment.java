@@ -1,12 +1,17 @@
-package edu.nntu.gerforecast;
+package edu.nntu.gerforecast.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import edu.nntu.gerforecast.fragments.input.DecimalInputField;
+import edu.nntu.gerforecast.fragments.input.InputField;
+import edu.nntu.gerforecast.fragments.input.InputValueAdapter;
+import edu.nntu.gerforecast.MainActivity;
+import edu.nntu.gerforecast.R;
 
 
 public class InputValueFragment extends MainActivity.PlaceholderFragment {
@@ -33,7 +38,7 @@ public class InputValueFragment extends MainActivity.PlaceholderFragment {
     @Override
     public void onStart() {
         super.onStart();
-        String[] values = new String[] {"Test", "OPOP", "1", "One more time"};
+        InputField[] values = new InputField[] {new DecimalInputField("One more time"), new DecimalInputField("One more time", 1)};
         InputValueAdapter adapter = new InputValueAdapter(getActivity(), values);
         ListView listView = (ListView) getActivity().findViewById(R.id.inputListValuesView);
         listView.setAdapter(adapter);
