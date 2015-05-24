@@ -2,8 +2,6 @@ package edu.nntu.gerforecast.fragments.input;
 
 import android.text.InputType;
 
-import java.text.DecimalFormat;
-
 public class DecimalInputField extends InputField<Double> {
 
     public DecimalInputField(String name) {
