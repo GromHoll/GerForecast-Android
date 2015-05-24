@@ -24,6 +24,8 @@ public abstract class InputField<F> {
 
     public abstract F getValue();
 
+    public abstract void setStringValue(String str);
+
     public abstract void setValue(F value);
 
     public abstract int getInputType();
