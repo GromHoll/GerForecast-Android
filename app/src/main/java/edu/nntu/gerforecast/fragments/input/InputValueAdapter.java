@@ -5,42 +5,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import edu.nntu.gerforecast.R;
+import java.util.ArrayList;
+import java.util.List;
 
-// TODO Change String to POJO
+import edu.nntu.gerforecast.MainActivity;
+import edu.nntu.gerforecast.R;
+import edu.nntu.gerforecast.math.data.InputValues;
+
 public class InputValueAdapter extends ArrayAdapter<InputField> {
 
-    private final Context context;
-    private final InputField[] values;
-    private final View[] rowViews;
+    private final MainActivity mainActivity;
+    private final List<InputField> values;
 
-    public InputValueAdapter(Context context, InputField[] values) {
-        super(context, R.layout.fragment_input_value, values);
-        this.context = context;
+    public InputValueAdapter(MainActivity mainActivity, List<InputField> values) {
+        super(mainActivity, R.layout.fragment_input_value, values);
+        this.mainActivity = mainActivity;
         this.values = values;
-        this.rowViews = new View[values.length];
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View rowView = rowViews[position];
-        if (rowView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.element_input_value_number, parent, false);
+        LayoutInflater inflater = (LayoutInflater) mainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View rowView = inflater.inflate(R.layout.element_input_value_number, parent, false);
+        InputField value = values.get(position);
 
-            TextView textView = (TextView) rowView.findViewById(R.id.rowLabel);
-            textView.setText(values[position].getName());
+        TextView textView = (TextView) rowView.findViewById(R.id.rowLabel);
+        textView.setText(value.getName());
 
-            EditText editText = (EditText) rowView.findViewById(R.id.inputField);
-            editText.setInputType(values[position].getInputType());
-            editText.setText(values[position].getValue().toString());
+        EditText editText = (EditText) rowView.findViewById(R.id.inputField);
+        editText.setInputType(value.getInputType());
+        editText.setEnabled(value.isEnabled());
+        editText.setText(value.getValue().toString());
 
-            rowViews[position] = rowView;
-        }
         return rowView;
     }
-
 }

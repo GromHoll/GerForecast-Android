@@ -2,10 +2,14 @@ package edu.nntu.gerforecast.fragments.input;
 
 import android.text.InputType;
 
-public class IntegerInputField extends InputField<Integer> {
+public abstract class IntegerInputField extends InputField<Integer> {
 
-    public IntegerInputField(String name, int value) {
-        super(name, value);
+    public IntegerInputField(String name) {
+        this(name, true);
+    }
+
+    public IntegerInputField(String name, boolean isEnabled) {
+        super(name, isEnabled);
     }
 
     @Override

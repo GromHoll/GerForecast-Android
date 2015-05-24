@@ -11,16 +11,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.nntu.gerforecast.fragments.InputValueFragment;
 import edu.nntu.gerforecast.fragments.MainMenuFragment;
 import edu.nntu.gerforecast.fragments.NavigationDrawerFragment;
+import edu.nntu.gerforecast.math.data.InputValues;
 
 
 public class MainActivity extends ActionBarActivity
                           implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    private Map<Integer, PlaceholderFragment> navigationElements = new HashMap<>();
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
+
+    private InputValues inputValue = new InputValues();
+
+    public InputValues getInputValue() {
+        return inputValue;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,41 +51,40 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // TODO make fragments reusable
-        switch (position) {
-            case 0:
-                transaction.replace(R.id.container, MainMenuFragment.newInstance(position + 1));
-                break;
-            case 1:
-                transaction.replace(R.id.container, InputValueFragment.newInstance(position + 1));
-                break;
-            default:
-                transaction.replace(R.id.container, MainMenuFragment.newInstance(position + 1));
-                break;
+
+        PlaceholderFragment currentFragment = navigationElements.get(position);
+        if (currentFragment == null) {
+            currentFragment = createFragment(position);
+            navigationElements.put(position, currentFragment);
         }
+        transaction.replace(R.id.container, currentFragment);
         transaction.commit();
     }
 
-    public void onSectionAttached(int number) {
-        switch (number) {
+    private PlaceholderFragment createFragment(int position) {
+        switch (position) {
+            case 0:
+                return MainMenuFragment.newInstance(position + 1);
             case 1:
-                mTitle = getString(R.string.title_main_menu);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_input_values);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_result);
-                break;
-            case 4:
-                mTitle = getString(R.string.title_elasticity);
-                break;
-            case 5:
-                mTitle = getString(R.string.title_variation);
-                break;
-            case 6:
-                mTitle = getString(R.string.title_saving_project);
-                break;
+                return InputValueFragment.newInstance(position + 1);
+            default:
+                return MainMenuFragment.newInstance(position + 1);
+        }
+    }
+
+    public void onSectionAttached(int number) {
+        mTitle = getSectionName(number);
+    }
+
+    private String getSectionName(int number) {
+        switch (number) {
+            case 1: return getString(R.string.title_main_menu);
+            case 2: return getString(R.string.title_input_values);
+            case 3: return getString(R.string.title_result);
+            case 4: return getString(R.string.title_elasticity);
+            case 5: return getString(R.string.title_variation);
+            case 6: return getString(R.string.title_saving_project);
+            default: return "Unknown";
         }
     }
 
@@ -84,7 +94,6 @@ public class MainActivity extends ActionBarActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,5 +121,4 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }

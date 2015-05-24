@@ -2,10 +2,10 @@ package edu.nntu.gerforecast.fragments.input;
 
 import android.text.InputType;
 
-public class DecimalInputField extends InputField<Double> {
+public abstract class DecimalInputField extends InputField<Double> {
 
-    public DecimalInputField(String name, double value) {
-        super(name, value);
+    public DecimalInputField(String name) {
+        super(name);
     }
 
     @Override
