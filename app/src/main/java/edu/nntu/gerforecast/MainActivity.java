@@ -11,9 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import edu.nntu.gerforecast.fragments.ChartsFragment;
 import edu.nntu.gerforecast.fragments.InputValueFragment;
 import edu.nntu.gerforecast.fragments.MainMenuFragment;
 import edu.nntu.gerforecast.fragments.NavigationDrawerFragment;
@@ -25,16 +28,27 @@ import edu.nntu.gerforecast.math.scenario.MainScenario;
 public class MainActivity extends ActionBarActivity
                           implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    private List<OutputValuesChangeListener> outputValuesChangeListeners = new ArrayList<>();
+
     private Map<Integer, PlaceholderFragment> navigationElements = new HashMap<>();
     private NavigationDrawerFragment navigationDrawerFragment;
     private CharSequence mTitle;
 
     private MainScenario scenario = new MainScenario();
-    private InputValues inputValue = new InputValues();
-    private OutputValues values;
+    private InputValues inputValue =  new InputValues() {{
+        setRepaymentOfCredit(1000, 1);
+        setRepaymentOfCredit(3000, 2);
+        setRepaymentOfCredit(4000, 3);
+        setRepaymentOfCredit(2000, 4);
+    }};
+    private OutputValues outputValues = null;
 
     public InputValues getInputValue() {
         return inputValue;
+    }
+
+    public OutputValues getOutputValues() {
+        return outputValues;
     }
 
     @Override
@@ -71,6 +85,8 @@ public class MainActivity extends ActionBarActivity
                 return MainMenuFragment.newInstance(position + 1);
             case 1:
                 return InputValueFragment.newInstance(position + 1);
+            case 2:
+                return ChartsFragment.newInstance(position + 1);
             default:
                 return MainMenuFragment.newInstance(position + 1);
         }
@@ -118,8 +134,10 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onAction() {
-        values = scenario.calculate(inputValue);
-        // TODO Draw all charts
+        outputValues = scenario.calculate(inputValue);
+        for (OutputValuesChangeListener ovcl : outputValuesChangeListeners) {
+            ovcl.onOutputValuesChanges(outputValues);
+        }
     }
 
     public static abstract class PlaceholderFragment<T extends PlaceholderFragment> extends Fragment {
@@ -130,5 +148,19 @@ public class MainActivity extends ActionBarActivity
             super.onAttach(activity);
             ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+
+    public void addOutputValuesChangeListener(OutputValuesChangeListener listener) {
+        outputValuesChangeListeners.add(listener);
+    }
+
+    public void removeOutputValuesChangeListener(OutputValuesChangeListener listener) {
+        if (!outputValuesChangeListeners.isEmpty()) {
+            outputValuesChangeListeners.remove(listener);
+        }
+    }
+
+    public static interface OutputValuesChangeListener {
+        public void onOutputValuesChanges(OutputValues outputValues);
     }
 }
