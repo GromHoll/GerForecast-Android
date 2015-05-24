@@ -18,16 +18,20 @@ import edu.nntu.gerforecast.fragments.InputValueFragment;
 import edu.nntu.gerforecast.fragments.MainMenuFragment;
 import edu.nntu.gerforecast.fragments.NavigationDrawerFragment;
 import edu.nntu.gerforecast.math.data.InputValues;
+import edu.nntu.gerforecast.math.data.OutputValues;
+import edu.nntu.gerforecast.math.scenario.MainScenario;
 
 
 public class MainActivity extends ActionBarActivity
                           implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private Map<Integer, PlaceholderFragment> navigationElements = new HashMap<>();
-    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private NavigationDrawerFragment navigationDrawerFragment;
     private CharSequence mTitle;
 
+    private MainScenario scenario = new MainScenario();
     private InputValues inputValue = new InputValues();
+    private OutputValues values;
 
     public InputValues getInputValue() {
         return inputValue;
@@ -38,11 +42,11 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
+        navigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        mNavigationDrawerFragment.setUp(
+        navigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
@@ -97,7 +101,7 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (!navigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
             return true;
@@ -110,6 +114,12 @@ public class MainActivity extends ActionBarActivity
         int id = item.getItemId();
         if (id == R.id.action_settings) { return true; }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onAction() {
+        values = scenario.calculate(inputValue);
+        // TODO Draw all charts
     }
 
     public static abstract class PlaceholderFragment<T extends PlaceholderFragment> extends Fragment {
