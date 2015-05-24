@@ -4,10 +4,6 @@ import android.text.InputType;
 
 public class DecimalInputField extends InputField<Double> {
 
-    public DecimalInputField(String name) {
-        super(name, 0.0);
-    }
-
     public DecimalInputField(String name, double value) {
         super(name, value);
     }

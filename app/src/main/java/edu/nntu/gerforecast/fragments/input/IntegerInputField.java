@@ -4,10 +4,6 @@ import android.text.InputType;
 
 public class IntegerInputField extends InputField<Integer> {
 
-    public IntegerInputField(String name) {
-        super(name, 0);
-    }
-
     public IntegerInputField(String name, int value) {
         super(name, value);
     }

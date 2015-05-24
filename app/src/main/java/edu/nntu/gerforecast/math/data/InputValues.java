@@ -4,30 +4,30 @@ import java.util.Arrays;
 
 public class InputValues {
 
-    private static final double DEFAULT_INITIAL_EQUIPMENT_COST = 10000;
-    private static final double DEFAULT_EQUIPMENT_SALES_RATIO = 0.05;
-    private static final double DEFAULT_INCOME_TAX_RATE = 0.2;
-    private static final double DEFAULT_DISCOUNT_RATE = 0.13;
-    private static final double DEFAULT_INTEREST_ON_LOAN = 0.18;
-    private static final double DEFAULT_PRODUCT_COST = 48;
-    private static final double DEFAULT_PRODUCT_MATERIAL_COST = 33;
-    private static final double DEFAULT_LABOR_COST = 45000;
-    private static final double DEFAULT_GENERAL_PRODUCTION_EXPENSES = 21000;
-    private static final double DEFAULT_MANAGEMENT_EXPENSES = 10000;
-    private static final double DEFAULT_ADS_EXPENSES = 12000;
-    private static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_1 = 0.10;
-    private static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_2 = 0.11;
-    private static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_3 = 0.09;
-    private static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_4 = 0.10;
-    private static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_5 = 0.10;
-    private static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_6 = 0.10;
-    private static final double DEFAULT_SALES_TURNOVER_RATIO = 8;
-    private static final double DEFAULT_STOCKS_TURNOVER_RATIO = 12;
-    private static final double DEFAULT_SUPPLIES_TURNOVER_RATIO = 6;
-    private static final double DEFAULT_SALARIES_TURNOVER_RATIO = 24;
+    public static final double DEFAULT_INITIAL_EQUIPMENT_COST = 10000;
+    public static final double DEFAULT_EQUIPMENT_SALES_RATIO = 0.05;
+    public static final double DEFAULT_INCOME_TAX_RATE = 0.2;
+    public static final double DEFAULT_DISCOUNT_RATE = 0.13;
+    public static final double DEFAULT_INTEREST_ON_LOAN = 0.18;
+    public static final double DEFAULT_PRODUCT_COST = 48;
+    public static final double DEFAULT_PRODUCT_MATERIAL_COST = 33;
+    public static final double DEFAULT_LABOR_COST = 45000;
+    public static final double DEFAULT_GENERAL_PRODUCTION_EXPENSES = 21000;
+    public static final double DEFAULT_MANAGEMENT_EXPENSES = 10000;
+    public static final double DEFAULT_ADS_EXPENSES = 12000;
+    public static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_1 = 0.10;
+    public static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_2 = 0.11;
+    public static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_3 = 0.09;
+    public static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_4 = 0.10;
+    public static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_5 = 0.10;
+    public static final double DEFAULT_EXPECTED_RATE_OF_INFLATION_6 = 0.10;
+    public static final double DEFAULT_SALES_TURNOVER_RATIO = 8;
+    public static final double DEFAULT_STOCKS_TURNOVER_RATIO = 12;
+    public static final double DEFAULT_SUPPLIES_TURNOVER_RATIO = 6;
+    public static final double DEFAULT_SALARIES_TURNOVER_RATIO = 24;
 
-    private static final int DEFAULT_PRODUCTS_SOLD_PER_YEARS = 12000;
-    private static final int DEFAULT_YEARS_NUMBER = 5;
+    public static final int DEFAULT_PRODUCTS_SOLD_PER_YEARS = 12000;
+    public static final int DEFAULT_YEARS_NUMBER = 5;
 
     /** F - Первоначальная стоимость оборудования */
     private double initialEquipmentCost = DEFAULT_INITIAL_EQUIPMENT_COST;
