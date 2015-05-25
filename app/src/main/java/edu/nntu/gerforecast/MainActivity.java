@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.nntu.gerforecast.fragments.ChartsFragment;
+import edu.nntu.gerforecast.fragments.ResultsFragment;
 import edu.nntu.gerforecast.fragments.InputValueFragment;
 import edu.nntu.gerforecast.fragments.MainMenuFragment;
 import edu.nntu.gerforecast.fragments.NavigationDrawerFragment;
@@ -86,7 +86,7 @@ public class MainActivity extends ActionBarActivity
             case 1:
                 return InputValueFragment.newInstance(position + 1);
             case 2:
-                return ChartsFragment.newInstance(position + 1);
+                return ResultsFragment.newInstance(position + 1);
             default:
                 return MainMenuFragment.newInstance(position + 1);
         }
