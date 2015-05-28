@@ -47,18 +47,51 @@ public class ElasticityFragment extends MainActivity.PlaceholderFragment impleme
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_elasticity, container, false);
 
+        LineChart financeDynamicQ = (LineChart) view.findViewById(R.id.chartFinanceDynamic_Q);
+        LineChart financeProfileQ = (LineChart) view.findViewById(R.id.chartFinanceProfile_Q);
+        setUpCharts(financeDynamicQ, financeProfileQ);
+        if (mainActivity.getElasticityOutputValues() != null) {
+            updateCharts(financeDynamicQ, financeProfileQ, mainActivity.getElasticityOutputValues().getQ(), "(Q)");
+        }
 
-//        LineChart financeDynamic = (LineChart) view.findViewById(R.id.chartFinanceDynamic);
-//        setUpChart(financeDynamic);
-//        LineChart financeProfile = (LineChart) view.findViewById(R.id.chartFinanceProfile);
-//        setUpChart(financeProfile);
-//
-//        updateCharts(financeDynamic, financeProfile, mainActivity.getOutputValues());
-//
+        LineChart financeDynamicK = (LineChart) view.findViewById(R.id.chartFinanceDynamic_K);
+        LineChart financeProfileK = (LineChart) view.findViewById(R.id.chartFinanceProfile_K);
+        setUpCharts(financeDynamicK, financeProfileK);
+        if (mainActivity.getElasticityOutputValues() != null) {
+            updateCharts(financeDynamicK, financeProfileK, mainActivity.getElasticityOutputValues().getK(), "(K)");
+        }
+
+        LineChart financeDynamicKS = (LineChart) view.findViewById(R.id.chartFinanceDynamic_KS);
+        LineChart financeProfileKS = (LineChart) view.findViewById(R.id.chartFinanceProfile_KS);
+        setUpCharts(financeDynamicKS, financeProfileKS);
+        if (mainActivity.getElasticityOutputValues() != null) {
+            updateCharts(financeDynamicKS, financeProfileKS, mainActivity.getElasticityOutputValues().getKs(), "(KS)");
+        }
+
+        LineChart financeDynamicF = (LineChart) view.findViewById(R.id.chartFinanceDynamic_F);
+        LineChart financeProfileF = (LineChart) view.findViewById(R.id.chartFinanceProfile_F);
+        setUpCharts(financeDynamicF, financeProfileF);
+        if (mainActivity.getElasticityOutputValues() != null) {
+            updateCharts(financeDynamicF, financeProfileF, mainActivity.getElasticityOutputValues().getF(), "(F)");
+        }
+
+        LineChart financeDynamicL = (LineChart) view.findViewById(R.id.chartFinanceDynamic_L);
+        LineChart financeProfileL = (LineChart) view.findViewById(R.id.chartFinanceProfile_L);
+        setUpCharts(financeDynamicL, financeProfileL);
+        if (mainActivity.getElasticityOutputValues() != null) {
+            updateCharts(financeDynamicL, financeProfileL, mainActivity.getElasticityOutputValues().getL(), "(L)");
+        }
+
         TableLayout table = (TableLayout) view.findViewById(R.id.elasticityTable);
         updateTable(table, mainActivity.getOutputValues(), mainActivity.getElasticityOutputValues());
 
         return view;
+    }
+
+    private void setUpCharts(LineChart ... charts) {
+        for (LineChart chart : charts) {
+            setUpChart(chart);
+        }
     }
 
     private void setUpChart(LineChart chart) {
@@ -66,9 +99,9 @@ public class ElasticityFragment extends MainActivity.PlaceholderFragment impleme
         chart.setDrawGridBackground(false);
         chart.setNoDataText("Введите данные и нажмите \"рассчитать\"");
         chart.setHighlightEnabled(true);
-        chart.setTouchEnabled(true);
-        chart.setDragEnabled(true);
-        chart.setScaleEnabled(true);
+        chart.setTouchEnabled(false);
+        chart.setDragEnabled(false);
+        chart.setScaleEnabled(false);
     }
 
     @Override
@@ -80,18 +113,34 @@ public class ElasticityFragment extends MainActivity.PlaceholderFragment impleme
 
     @Override
     public void onElasticityOutputChanges(OutputValues outputValues, ElasticityOutput elasticityOutput) {
-//        LineChart financeDynamic = (LineChart) mainActivity.findViewById(R.id.chartFinanceDynamic);
-//        LineChart financeProfile = (LineChart) mainActivity.findViewById(R.id.chartFinanceProfile);
-//        updateCharts(financeDynamic, financeProfile, outputValues);
-//
+        LineChart financeDynamicQ = (LineChart) mainActivity.findViewById(R.id.chartFinanceDynamic_Q);
+        LineChart financeProfileQ = (LineChart) mainActivity.findViewById(R.id.chartFinanceProfile_Q);
+        updateCharts(financeDynamicQ, financeProfileQ, elasticityOutput.getQ(), "(Q)");
+
+        LineChart financeDynamicK = (LineChart) mainActivity.findViewById(R.id.chartFinanceDynamic_K);
+        LineChart financeProfileK = (LineChart) mainActivity.findViewById(R.id.chartFinanceProfile_K);
+        updateCharts(financeDynamicK, financeProfileK, elasticityOutput.getK(), "(K)");
+
+        LineChart financeDynamicKS = (LineChart) mainActivity.findViewById(R.id.chartFinanceDynamic_KS);
+        LineChart financeProfileKS = (LineChart) mainActivity.findViewById(R.id.chartFinanceProfile_KS);
+        updateCharts(financeDynamicKS, financeProfileKS, elasticityOutput.getKs(), "(KS)");
+
+        LineChart financeDynamicF = (LineChart) mainActivity.findViewById(R.id.chartFinanceDynamic_F);
+        LineChart financeProfileF = (LineChart) mainActivity.findViewById(R.id.chartFinanceProfile_F);
+        updateCharts(financeDynamicF, financeProfileF, elasticityOutput.getF(), "(F)");
+
+        LineChart financeDynamicL = (LineChart) mainActivity.findViewById(R.id.chartFinanceDynamic_L);
+        LineChart financeProfileL = (LineChart) mainActivity.findViewById(R.id.chartFinanceProfile_L);
+        updateCharts(financeDynamicL, financeProfileL, elasticityOutput.getL(), "(L)");
+
         TableLayout table = (TableLayout) mainActivity.findViewById(R.id.elasticityTable);
         updateTable(table, outputValues, elasticityOutput);
     }
 
-    private void updateCharts(LineChart financeDynamic, LineChart financeProfile, OutputValues outputValues) {
+    private void updateCharts(LineChart financeDynamic, LineChart financeProfile, OutputValues outputValues, String suffix) {
         if (outputValues == null) { return; }
-        updateChart(financeDynamic, outputValues.cashBalance, "Финансовый профиль");
-        updateChart(financeProfile, outputValues.currentOperationsAndInvestments, "Динамика остатка денежных средств");
+        updateChart(financeDynamic, outputValues.cashBalance, "Финансовый профиль " + suffix);
+        updateChart(financeProfile, outputValues.currentOperationsAndInvestments, "Динамика остатка денежных средств " + suffix);
     }
 
     private void updateChart(LineChart chart, double[] values, String name) {
