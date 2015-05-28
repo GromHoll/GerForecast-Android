@@ -1,0 +1,256 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity$PlaceholderFragment">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/scrollView"
+                android:layout_toRightOf="@+id/scrollView"
+                android:layout_toEndOf="@+id/scrollView"
+                android:id="@+id/elasticityTable">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="NPV"
+                        android:id="@+id/textView2"
+                        android:layout_column="1"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="ОДС"
+                        android:id="@+id/textView7"
+                        android:layout_column="2" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Q"
+                        android:id="@+id/textView"
+                        android:layout_column="0"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_11"
+                        android:layout_column="1"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_12"
+                        android:layout_column="2"
+                        android:layout_marginRight="10dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="K"
+                        android:id="@+id/textView3"
+                        android:layout_column="0"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_21"
+                        android:layout_column="1"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_22"
+                        android:layout_column="2"
+                        android:layout_marginRight="10dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="KS"
+                        android:id="@+id/textView4"
+                        android:layout_column="0"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_31"
+                        android:layout_column="1"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_32"
+                        android:layout_column="2"
+                        android:layout_marginRight="10dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="F"
+                        android:id="@+id/textView5"
+                        android:layout_column="0"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_41"
+                        android:layout_column="1"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_42"
+                        android:layout_column="2"
+                        android:layout_marginRight="10dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="L"
+                        android:id="@+id/textView6"
+                        android:layout_column="0"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_51"
+                        android:layout_column="1"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/elasticity_52"
+                        android:layout_column="2"
+                        android:layout_marginRight="10dp" />
+                </TableRow>
+            </TableLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceProfile_Q"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceDynamic_Q"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceProfile_K"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceDynamic_K"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceProfile_KS"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceDynamic_KS"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceProfile_F"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceDynamic_F"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceProfile_L"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartFinanceDynamic_L"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

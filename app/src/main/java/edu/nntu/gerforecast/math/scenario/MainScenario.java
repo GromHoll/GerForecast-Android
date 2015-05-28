@@ -1,5 +1,6 @@
 package edu.nntu.gerforecast.math.scenario;
 
+import edu.nntu.gerforecast.math.data.ElasticityOutput;
 import edu.nntu.gerforecast.math.data.InputValues;
 import edu.nntu.gerforecast.math.data.OutputValues;
 
@@ -237,4 +238,33 @@ public class MainScenario {
             }
         }
     }
+
+    public ElasticityOutput calculateElasticity(InputValues input) {
+        try {
+            InputValues inQ = input.clone();
+            inQ.setProductsSoldPerYears((int) (inQ.getProductsSoldPerYears() * 0.9));
+            OutputValues q = calculate(inQ);
+
+            InputValues inK = input.clone();
+            inK.setProductCost((int) (inK.getProductCost() * 1.1));
+            OutputValues k = calculate(inK);
+
+            InputValues inL = input.clone();
+            inL.setProductMaterialCost(inL.getProductMaterialCost() * 1.1);
+            OutputValues l = calculate(inL);
+
+            InputValues inKs = input.clone();
+            inKs.setSalesTurnoverRatio(inKs.getSalesTurnoverRatio() * 2);
+            OutputValues ks = calculate(inKs);
+
+            InputValues inF = input.clone();
+            inF.setInitialEquipmentCost(inF.getInitialEquipmentCost() * 1.2);
+            OutputValues f = calculate(inF);
+
+            return new ElasticityOutput(q, k, ks, l, f);
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Input clone error");
+        }
+    }
+
 }

@@ -16,10 +16,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.nntu.gerforecast.fragments.ElasticityFragment;
 import edu.nntu.gerforecast.fragments.ResultsFragment;
 import edu.nntu.gerforecast.fragments.InputValueFragment;
 import edu.nntu.gerforecast.fragments.MainMenuFragment;
 import edu.nntu.gerforecast.fragments.NavigationDrawerFragment;
+import edu.nntu.gerforecast.math.data.ElasticityOutput;
 import edu.nntu.gerforecast.math.data.InputValues;
 import edu.nntu.gerforecast.math.data.OutputValues;
 import edu.nntu.gerforecast.math.scenario.MainScenario;
@@ -29,6 +31,7 @@ public class MainActivity extends ActionBarActivity
                           implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private List<OutputValuesChangeListener> outputValuesChangeListeners = new ArrayList<>();
+    private List<ElasticityOutputChangeListener> elasticityOutputChangeListeners = new ArrayList<>();
 
     private Map<Integer, PlaceholderFragment> navigationElements = new HashMap<>();
     private NavigationDrawerFragment navigationDrawerFragment;
@@ -42,6 +45,7 @@ public class MainActivity extends ActionBarActivity
         setRepaymentOfCredit(2000, 4);
     }};
     private OutputValues outputValues = null;
+    private ElasticityOutput elasticityOutputValues = null;
 
     public InputValues getInputValue() {
         return inputValue;
@@ -49,6 +53,10 @@ public class MainActivity extends ActionBarActivity
 
     public OutputValues getOutputValues() {
         return outputValues;
+    }
+
+    public ElasticityOutput getElasticityOutputValues() {
+        return elasticityOutputValues;
     }
 
     @Override
@@ -87,6 +95,8 @@ public class MainActivity extends ActionBarActivity
                 return InputValueFragment.newInstance(position + 1);
             case 2:
                 return ResultsFragment.newInstance(position + 1);
+            case 3:
+                return ElasticityFragment.newInstance(position + 1);
             default:
                 return MainMenuFragment.newInstance(position + 1);
         }
@@ -138,6 +148,11 @@ public class MainActivity extends ActionBarActivity
         for (OutputValuesChangeListener ovcl : outputValuesChangeListeners) {
             ovcl.onOutputValuesChanges(outputValues);
         }
+
+        elasticityOutputValues = scenario.calculateElasticity(inputValue);
+        for (ElasticityOutputChangeListener eocl : elasticityOutputChangeListeners) {
+            eocl.onElasticityOutputChanges(outputValues, elasticityOutputValues);
+        }
     }
 
     public static abstract class PlaceholderFragment<T extends PlaceholderFragment> extends Fragment {
@@ -162,5 +177,19 @@ public class MainActivity extends ActionBarActivity
 
     public static interface OutputValuesChangeListener {
         public void onOutputValuesChanges(OutputValues outputValues);
+    }
+
+    public void addElasticityOutputChangeListener(ElasticityOutputChangeListener listener) {
+        elasticityOutputChangeListeners.add(listener);
+    }
+
+    public void removeElasticityOutputChangeListener(ElasticityOutputChangeListener listener) {
+        if (!elasticityOutputChangeListeners.isEmpty()) {
+            elasticityOutputChangeListeners.remove(listener);
+        }
+    }
+
+    public static interface ElasticityOutputChangeListener {
+        public void onElasticityOutputChanges(OutputValues outputValues, ElasticityOutput elasticityOutput);
     }
 }

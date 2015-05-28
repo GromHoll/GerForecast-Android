@@ -2,7 +2,7 @@ package edu.nntu.gerforecast.math.data;
 
 import java.util.Arrays;
 
-public class InputValues {
+public class InputValues implements Cloneable {
 
     public static final double DEFAULT_INITIAL_EQUIPMENT_COST = 10000;
     public static final double DEFAULT_EQUIPMENT_SALES_RATIO = 0.05;
@@ -337,4 +337,34 @@ public class InputValues {
         return this;
     }
 
+    @Override
+    public InputValues clone() throws CloneNotSupportedException {
+        InputValues newInputs = new InputValues(yearsNumber);
+
+        newInputs.initialEquipmentCost = initialEquipmentCost;
+        newInputs.equipmentSalesRatio = equipmentSalesRatio;
+        newInputs.productsSoldPerYears = productsSoldPerYears;
+        newInputs.incomeTaxRate = incomeTaxRate;
+        newInputs.discountRate = discountRate;
+        newInputs.interestOnLoan = interestOnLoan;
+        newInputs.repaymentOfCredit = Arrays.copyOf(repaymentOfCredit, repaymentOfCredit.length);
+        newInputs.productCost = productCost;
+        newInputs.productMaterialCost = productMaterialCost;
+        newInputs.laborCosts = laborCosts;
+        newInputs.generalProductionExpenses = generalProductionExpenses;
+        newInputs.managementExpenses = managementExpenses;
+        newInputs.adsExpenses = adsExpenses;
+        newInputs.expectedRateOfInflation_1 = expectedRateOfInflation_1;
+        newInputs.expectedRateOfInflation_2 = expectedRateOfInflation_2;
+        newInputs.expectedRateOfInflation_3 = expectedRateOfInflation_3;
+        newInputs.expectedRateOfInflation_4 = expectedRateOfInflation_4;
+        newInputs.expectedRateOfInflation_5 = expectedRateOfInflation_5;
+        newInputs.expectedRateOfInflation_6 = expectedRateOfInflation_6;
+        newInputs.salesTurnoverRatio = salesTurnoverRatio;
+        newInputs.stocksTurnoverRatio = stocksTurnoverRatio;
+        newInputs.suppliesTurnoverRatio = suppliesTurnoverRatio;
+        newInputs.salariesTurnoverRatio = salariesTurnoverRatio;
+
+        return newInputs;
+    }
 }
