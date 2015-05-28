@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.nntu.gerforecast.fragments.ElasticityFragment;
+import edu.nntu.gerforecast.fragments.MonteCarloFragment;
 import edu.nntu.gerforecast.fragments.ResultsFragment;
 import edu.nntu.gerforecast.fragments.InputValueFragment;
 import edu.nntu.gerforecast.fragments.MainMenuFragment;
@@ -97,6 +98,8 @@ public class MainActivity extends ActionBarActivity
                 return ResultsFragment.newInstance(position + 1);
             case 3:
                 return ElasticityFragment.newInstance(position + 1);
+            case 4:
+                return MonteCarloFragment.newInstance(position + 1);
             default:
                 return MainMenuFragment.newInstance(position + 1);
         }
