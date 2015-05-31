@@ -142,7 +142,7 @@ public class ResultsFragment extends MainActivity.PlaceholderFragment implements
 
     private String getTextForTable(int index, double[] values) {
         return (index < values.length) ?
-                String.format(values[index] < 100 ? "%.3f" : "%.0f", values[index]) : "";
+                String.format(Math.abs(values[index]) < 100 ? "%.3f" : "%.0f", values[index]) : "";
     }
 
     @Override
