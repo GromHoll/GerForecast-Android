@@ -3,9 +3,12 @@ package edu.nntu.gerforecast.fragments;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -15,6 +18,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import edu.nntu.gerforecast.MainActivity;
@@ -25,7 +29,27 @@ import edu.nntu.gerforecast.math.data.OutputValues;
 
 public class MonteCarloFragment extends MainActivity.PlaceholderFragment {
 
+    public static abstract class ValueChanger implements TextWatcher {
+        @Override
+        public void afterTextChanged(Editable s) {}
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (s != null && !s.toString().isEmpty()) {
+                double value = Double.parseDouble(s.toString());
+            }
+        }
+        public abstract void saveValue(double value);
+    }
+
     private MainActivity mainActivity = null;
+
+    private double productsSoldPerYears = 0;
+    private double initialEquipmentCost = 0;
+    private double productCost = 0;
+    private double productMaterialCost = 0;
+    private double salesTurnoverRatio = 0;
 
     public static MonteCarloFragment newInstance(int sectionNumber) {
         MonteCarloFragment fragment = new MonteCarloFragment();
@@ -46,12 +70,48 @@ public class MonteCarloFragment extends MainActivity.PlaceholderFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_monte_carlo, container, false);
-
+        TableLayout table = (TableLayout) view.findViewById(R.id.tableInputMonte);
+        setupTable(table);
 
 //        TableLayout table = (TableLayout) view.findViewById(R.id.elasticityTable);
 //        updateTable(table, mainActivity.getOutputValues(), mainActivity.getElasticityOutputValues());
 
         return view;
+    }
+
+    private void setupTable(TableLayout table) {
+        EditText productsSoldPerYearsET = (EditText) table.findViewById(R.id.productsSoldPerYearsMonte);
+        EditText initialEquipmentCostET = (EditText) table.findViewById(R.id.initialEquipmentCostMonte);
+        EditText productCostET = (EditText) table.findViewById(R.id.productCostMonte);
+        EditText productMaterialCostET = (EditText) table.findViewById(R.id.productMaterialCostMonte);
+        EditText salesTurnoverRatioET = (EditText) table.findViewById(R.id.salesTurnoverRatioMonte);
+
+        productsSoldPerYearsET.setText("" + productsSoldPerYears);
+        initialEquipmentCostET.setText("" + initialEquipmentCost);
+        productCostET.setText("" + productCost);
+        productMaterialCostET.setText("" + productMaterialCost);
+        salesTurnoverRatioET.setText("" + salesTurnoverRatio);
+
+        productsSoldPerYearsET.addTextChangedListener(new ValueChanger() {
+            @Override
+            public void saveValue(double value) { productsSoldPerYears = value; }
+        });
+        initialEquipmentCostET.addTextChangedListener(new ValueChanger() {
+            @Override
+            public void saveValue(double value) { initialEquipmentCost = value; }
+        });
+        productCostET.addTextChangedListener(new ValueChanger() {
+            @Override
+            public void saveValue(double value) { productCost = value; }
+        });
+        productMaterialCostET.addTextChangedListener(new ValueChanger() {
+            @Override
+            public void saveValue(double value) { productMaterialCost = value; }
+        });
+        salesTurnoverRatioET.addTextChangedListener(new ValueChanger() {
+            @Override
+            public void saveValue(double value) { salesTurnoverRatio = value; }
+        });
     }
 
     private void setUpChart(LineChart chart) {
