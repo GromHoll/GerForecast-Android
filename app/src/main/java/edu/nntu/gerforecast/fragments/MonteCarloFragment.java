@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -20,14 +21,20 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import edu.nntu.gerforecast.MainActivity;
 import edu.nntu.gerforecast.R;
 import edu.nntu.gerforecast.math.data.ElasticityOutput;
+import edu.nntu.gerforecast.math.data.InputValues;
 import edu.nntu.gerforecast.math.data.OutputValues;
+import edu.nntu.gerforecast.math.scenario.MainScenario;
 
 
 public class MonteCarloFragment extends MainActivity.PlaceholderFragment {
+
+    public static final int DEFAULT_OUTPUTS_NUMBER = 20;
 
     public static abstract class ValueChanger implements TextWatcher {
         @Override
@@ -38,6 +45,7 @@ public class MonteCarloFragment extends MainActivity.PlaceholderFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             if (s != null && !s.toString().isEmpty()) {
                 double value = Double.parseDouble(s.toString());
+                saveValue(value);
             }
         }
         public abstract void saveValue(double value);
@@ -50,6 +58,8 @@ public class MonteCarloFragment extends MainActivity.PlaceholderFragment {
     private double productCost = 0;
     private double productMaterialCost = 0;
     private double salesTurnoverRatio = 0;
+
+    private List<OutputValues> outputValues = new ArrayList<>();
 
     public static MonteCarloFragment newInstance(int sectionNumber) {
         MonteCarloFragment fragment = new MonteCarloFragment();
@@ -73,8 +83,13 @@ public class MonteCarloFragment extends MainActivity.PlaceholderFragment {
         TableLayout table = (TableLayout) view.findViewById(R.id.tableInputMonte);
         setupTable(table);
 
-//        TableLayout table = (TableLayout) view.findViewById(R.id.elasticityTable);
-//        updateTable(table, mainActivity.getOutputValues(), mainActivity.getElasticityOutputValues());
+        Button calculateButton = (Button) view.findViewById(R.id.recalculateMonte);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recalculate();
+            }
+        });
 
         return view;
     }
@@ -106,22 +121,61 @@ public class MonteCarloFragment extends MainActivity.PlaceholderFragment {
         });
         productMaterialCostET.addTextChangedListener(new ValueChanger() {
             @Override
-            public void saveValue(double value) { productMaterialCost = value; }
+            public void saveValue(double value) {
+                productMaterialCost = value;
+            }
         });
         salesTurnoverRatioET.addTextChangedListener(new ValueChanger() {
             @Override
-            public void saveValue(double value) { salesTurnoverRatio = value; }
+            public void saveValue(double value) {
+                salesTurnoverRatio = value;
+            }
         });
     }
 
-    private void setUpChart(LineChart chart) {
-        chart.setDescription("");
-        chart.setDrawGridBackground(false);
-        chart.setNoDataText("Введите данные и нажмите \"рассчитать\"");
-        chart.setHighlightEnabled(true);
-        chart.setTouchEnabled(false);
-        chart.setDragEnabled(false);
-        chart.setScaleEnabled(false);
+    private void recalculate() {
+        outputValues.clear();
+
+        MainScenario scenario = mainActivity.getScenario();
+        List<InputValues> inputs = generateInputs();
+        for (InputValues input : inputs) {
+            outputValues.add(scenario.calculate(input));
+        }
+
+        // TODO update result
+    }
+
+    private List<InputValues> generateInputs() {
+        List<InputValues> results = new ArrayList<>();
+        try {
+            for (int i = 0; i < DEFAULT_OUTPUTS_NUMBER; i++) {
+                InputValues input = mainActivity.getInputValue().clone();
+                double productsSoldPerYearsDelta = getRandomDelta(productsSoldPerYears);
+                double initialEquipmentCostDelta = getRandomDelta(initialEquipmentCost);
+                double productCostDelta = getRandomDelta(productCost);
+                double productMaterialCostDelta = getRandomDelta(productMaterialCost);
+                double salesTurnoverRatioDelta = getRandomDelta(salesTurnoverRatio);
+
+                input.setProductsSoldPerYears((int) getValueWithDeviant(input.getProductsSoldPerYears(), productsSoldPerYearsDelta));
+                input.setInitialEquipmentCost(getValueWithDeviant(input.getInitialEquipmentCost(), initialEquipmentCostDelta));
+                input.setProductCost(getValueWithDeviant(input.getProductCost(), productCostDelta));
+                input.setProductMaterialCost(getValueWithDeviant(input.getProductMaterialCost(), productMaterialCostDelta));
+                input.setSalesTurnoverRatio(getValueWithDeviant(input.getSalesTurnoverRatio(), salesTurnoverRatioDelta));
+
+                results.add(input);
+            }
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    private double getRandomDelta(double deviant) {
+        return (Math.random() - 0.5)*2*deviant;
+    }
+
+    private double getValueWithDeviant(double value, double deviant) {
+        return value*(1 + deviant/100);
     }
 
     @Override
@@ -138,7 +192,7 @@ public class MonteCarloFragment extends MainActivity.PlaceholderFragment {
         setTableValue(elasticityOutput.getQ(),  output, 1, latestIndex, table);
         setTableValue(elasticityOutput.getK(),  output, 2, latestIndex, table);
         setTableValue(elasticityOutput.getKs(), output, 3, latestIndex, table);
-        setTableValue(elasticityOutput.getF(),  output, 4, latestIndex, table);
+        setTableValue(elasticityOutput.getF(), output, 4, latestIndex, table);
         setTableValue(elasticityOutput.getL(),  output, 5, latestIndex, table);
     }
 

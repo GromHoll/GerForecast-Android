@@ -60,6 +60,10 @@ public class MainActivity extends ActionBarActivity
         return elasticityOutputValues;
     }
 
+    public MainScenario getScenario() {
+        return scenario;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
