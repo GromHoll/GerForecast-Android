@@ -99,9 +99,9 @@ public class ElasticityFragment extends MainActivity.PlaceholderFragment impleme
         chart.setDrawGridBackground(false);
         chart.setNoDataText("Введите данные и нажмите \"рассчитать\"");
         chart.setHighlightEnabled(true);
-        chart.setTouchEnabled(false);
-        chart.setDragEnabled(false);
-        chart.setScaleEnabled(false);
+        chart.setTouchEnabled(true);
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
     }
 
     @Override
